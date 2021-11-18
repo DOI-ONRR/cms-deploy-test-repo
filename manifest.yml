@@ -1,0 +1,9 @@
+---
+applications: 
+- name: dev-onrr-cms-deploy
+  instances: 1
+  disk_quota: 1G
+  memory: 512M
+  random-route: true
+  buildpacks:
+    - nodejs_buildpack
