@@ -19,10 +19,6 @@ jobs:
             cf target -o "$DEV_CF_ORG" -s "$DEV_CF_SPACE"
             cf push dev-onrr-cms-deploy
 
-      - run: 
-          name: Update directus admin user and pass
-          command: |
-
 workflows:
   update-directus: 
     jobs:
