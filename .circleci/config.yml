@@ -1,25 +1,31 @@
 version: 2.1
 
+paramaters:
+  deploy_cms_update_to_dev:
+    type: boolean
+    default: false
+
 jobs:
   update-cms:
     docker:
       - image: cimg/node:16.13
     steps:
       - checkout
-      - hold:
-          type: approval
-      - run:
-          name: Update cms and deploy to cloud.gov
-          command: |
-            pwd && ls -l
-            curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
-            sudo dpkg -i cf-cli_amd64.deb  
-            # Set $CF_USERNAME and $CF_PASSWORD in CircleCI settings.
-            # $CF_ORG, $CF_SPACE, and $APP_NAME can also be set in CircleCI settings or hardcoded here.
-            cf api https://api.fr.cloud.gov
-            cf auth "$DEV_CF_USERNAME" "$DEV_CF_PASSWORD"
-            cf target -o "$DEV_CF_ORG" -s "$DEV_CF_SPACE"
-            cf push dev-onrr-cms-deploy
+      - when: 
+          condition: << pipeline.parameters.deploy_cms_update_to_dev >>
+          steps:
+            - run:
+                name: Update cms and deploy to cloud.gov
+                command: |
+                  pwd && ls -l
+                  curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
+                  sudo dpkg -i cf-cli_amd64.deb  
+                  # Set $CF_USERNAME and $CF_PASSWORD in CircleCI settings.
+                  # $CF_ORG, $CF_SPACE, and $APP_NAME can also be set in CircleCI settings or hardcoded here.
+                  cf api https://api.fr.cloud.gov
+                  cf auth "$DEV_CF_USERNAME" "$DEV_CF_PASSWORD"
+                  cf target -o "$DEV_CF_ORG" -s "$DEV_CF_SPACE"
+                  cf push dev-onrr-cms-deploy
 
 workflows:
   update-directus: 
