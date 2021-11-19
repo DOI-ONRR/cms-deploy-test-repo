@@ -1,5 +1,5 @@
 {
-  "name": "directus-data",
+  "name": "cms",
   "version": "1.0.0",
   "author": "Mojo Nichols <mojo.nichols@onrr.gov>",
   "description": "Directus CMS",
@@ -8,6 +8,6 @@
     "npm": "6.x"
   },
   "dependencies": {
-    "directus": "^9.0.0"
+    "directus": "^9.0.1"
   }
 }
