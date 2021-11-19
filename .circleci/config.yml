@@ -11,6 +11,8 @@ jobs:
       - image: cimg/node:16.13
     steps:
       - checkout
+      - hold:
+          type: approval
       - run:
           name: Update cms and deploy to cloud.gov
           command: |
@@ -26,6 +28,5 @@ jobs:
 
 workflows:
   update-directus: 
-    when: << pipeline.parameters.update_cms >>
     jobs:
       - update-cms
