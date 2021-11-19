@@ -26,6 +26,6 @@ jobs:
 
 workflows:
   cms_updates:
-    when: << pipeline.parameters.deploy_cms_update_to_dev >>
+    when: << pipeline.parameters.run_cms_updates >>
     jobs:
       - update-cms
