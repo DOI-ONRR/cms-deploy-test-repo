@@ -1,17 +1,9 @@
 version: 2.1
 
 paramaters:
-  deploy_cms_update_to_dev:
+  run_cms_updates:
     type: boolean
     default: false
-
-
-workflows:
-  version: 2
-  update-directus:
-    when: << pipeline.parameters.deploy_cms_update_to_dev >>
-    jobs:
-      - update-cms
 
 jobs:
   update-cms:
@@ -32,3 +24,8 @@ jobs:
             cf target -o "$DEV_CF_ORG" -s "$DEV_CF_SPACE"
             cf push dev-onrr-cms-deploy
 
+workflows:
+  cms_updates:
+    when: << pipeline.parameters.deploy_cms_update_to_dev >>
+    jobs:
+      - update-cms
