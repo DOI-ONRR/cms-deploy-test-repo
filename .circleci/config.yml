@@ -1,6 +1,6 @@
 version: 2.1
 
-paramaters:
+parameters:
   run_cms_updates:
     type: boolean
     default: false
