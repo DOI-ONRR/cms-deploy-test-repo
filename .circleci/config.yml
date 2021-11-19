@@ -1,10 +1,5 @@
 version: 2.1
 
-parameters:
-  update_cms:
-    type: boolean,
-    default: false
-
 jobs:
   update-cms:
     docker:
