@@ -11,10 +11,7 @@ jobs:
       - image: cimg/node:16.13
     steps:
       - checkout
-      - when: 
-          condition: << pipeline.parameters.deploy_cms_update_to_dev >>
-          steps:
-            - run:
+      - run:
                 name: Update cms and deploy to cloud.gov
                 command: |
                   pwd && ls -l
@@ -28,6 +25,7 @@ jobs:
                   cf push dev-onrr-cms-deploy
 
 workflows:
-  update-directus: 
+  update-directus:
+    when: << pipeline.parameters.deploy_cms_update_to_dev >>
     jobs:
       - update-cms
