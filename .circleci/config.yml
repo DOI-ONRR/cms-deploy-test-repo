@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  update_cms:
+    type: boolean,
+    default: false
+
 jobs:
   update-cms:
     docker:
@@ -21,5 +26,6 @@ jobs:
 
 workflows:
   update-directus: 
+    when: << pipeline.parameters.update_cms >>
     jobs:
       - update-cms
